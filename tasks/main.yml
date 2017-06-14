@@ -1,0 +1,20 @@
+---
+
+- name: haproxy
+  package:
+    name: haproxy
+    state: present
+
+- name: haproxy.cfg
+  copy:
+    src: "{{ playbook_dir }}/files/{{ cfg }}"
+    dest: /etc/haproxy/haproxy.cfg
+    backup: yes
+  notify: reload haproxy
+  when: cfg is defined
+
+- name: start haproxy
+  service:
+    name: haproxy
+    state: started
+  when: haproxy_start_service

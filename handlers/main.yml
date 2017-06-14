@@ -1,6 +1,14 @@
 ---
 
+# ansible bug #350
+# reload always starts service
+# https://github.com/ansible/ansible-modules-core/issues/350
+#
+# this is suboptimal with heartbeat where haproxy is
+# running only on _one_ system
+#
 - name: reload haproxy
-  service:
-    name: haproxy
-    state: reloaded
+  command: /sbin/service haproxy reload
+  register: reload_result
+#  ignore_errors: True
+  changed_when: "reload_result.rc == 0"
