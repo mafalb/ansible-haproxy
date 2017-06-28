@@ -7,8 +7,10 @@
 # this is suboptimal with heartbeat where haproxy is
 # running only on _one_ system
 #
+# therefore a check for the haproxy pid file
+#
 - name: reload haproxy
-  command: /sbin/service haproxy reload
-  register: reload_result
-#  ignore_errors: True
-  changed_when: "reload_result.rc == 0"
+  service:
+    name: haproxy
+    state: reloaded
+  when: haproxy_pidfile.stat.exists

@@ -13,8 +13,18 @@
   notify: reload haproxy
   when: cfg is defined
 
+# in a heartbeat cluster
+# heartbeat is starting
+# the service
+#
 - name: start haproxy
   service:
-    name: haproxy
+    name: "{{ haproxy_service }}"
     state: started
   when: haproxy_start_service
+
+- name: check for pidfile
+  stat:
+    path: /var/run/haproxy.pid
+  register: haproxy_pidfile
+
