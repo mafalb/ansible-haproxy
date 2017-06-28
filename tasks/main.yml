@@ -23,8 +23,14 @@
     state: started
   when: haproxy_start_service
 
+# ansible bug #350
+# reload always starts service
+# https://github.com/ansible/ansible-modules-core/issues/350
+#
+# gather info about the pid file
+# and use it in reload handler
+#
 - name: check for pidfile
   stat:
     path: /var/run/haproxy.pid
   register: haproxy_pidfile
-
