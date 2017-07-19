@@ -10,6 +10,7 @@
     src: "{{ playbook_dir }}/files/{{ cfg }}"
     dest: /etc/haproxy/haproxy.cfg
     backup: yes
+    validate: haproxy -c -f %s
   notify: reload haproxy
   when: cfg is defined
 
