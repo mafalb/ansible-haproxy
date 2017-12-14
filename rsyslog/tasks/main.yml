@@ -1,0 +1,13 @@
+---
+
+- name: directory for haproxy
+  file:
+    path: "{{ haproxy_logdir }}"
+    state: directory
+- name: rsyslog is configured for haproxy
+  template:
+    src: "{{ item }}"
+    dest: /etc/rsyslog.d/haproxy.conf
+  with_items:
+    - haproxy.conf.j2
+  notify: reload rsyslog

@@ -1,0 +1,9 @@
+---
+
+- name: logrotate configuration for haproxy
+  template:
+    src: "{{ item }}"
+    dest: /etc/logrotate.d/haproxy
+  with_first_found:
+    - "{{ playbook_dir }}/templates/{{ haproxy_logrotate_config }}"
+    - haproxy.j2

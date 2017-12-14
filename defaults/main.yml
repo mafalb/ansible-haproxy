@@ -2,3 +2,4 @@
 
 haproxy_service: haproxy
 haproxy_start_service: yes
+haproxy_logdir: /var/log/haproxy
