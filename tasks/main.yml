@@ -7,7 +7,7 @@
 
 - name: haproxy.cfg
   copy:
-    src: "{{ playbook_dir }}/files/{{ cfg }}"
+    src: "{{ playbook_dir }}/templates/{{ cfg }}"
     dest: /etc/haproxy/haproxy.cfg
     backup: yes
     validate: haproxy -c -f %s
