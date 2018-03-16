@@ -1,6 +1,5 @@
 # Enable UDP port 514 to listen to incoming log messages from haproxy
-$template haproxy,"%msg%\n"
-local0.=info -{{ haproxy_logdir }}/haproxy.log;haproxy
-local0.notice -{{ haproxy_logdir }}/haproxy.admin;RSYSLOG_TraditionalFileFormat
+local0.=info -{{ haproxy_logdir }}/haproxy.log;RSYSLOG_FileFormat
+local0.notice -{{ haproxy_logdir }}/haproxy.admin;RSYSLOG_FileFormat
 # don't log anywhere else
 local0.* ~
