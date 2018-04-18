@@ -6,7 +6,7 @@
     state: present
 
 - name: haproxy.cfg
-  copy:
+  template:
     src: "{{ playbook_dir }}/templates/{{ cfg }}"
     dest: /etc/haproxy/haproxy.cfg
     backup: yes
@@ -22,7 +22,7 @@
   service:
     name: "{{ haproxy_service }}"
     state: started
-  when: haproxy_start_service
+  when: haproxy.service.managed
 
 # ansible bug #350
 # reload always starts service

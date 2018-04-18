@@ -3,3 +3,9 @@
 haproxy_service: haproxy
 haproxy_start_service: yes
 haproxy_logdir: /var/log/haproxy
+
+haproxy:
+  service:
+    managed: true
+  logdir: /var/log/haproxy
+  syslog_facility: local2
