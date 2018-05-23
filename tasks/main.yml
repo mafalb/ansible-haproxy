@@ -14,6 +14,10 @@
   notify: reload haproxy
   when: cfg is defined
 
+- debug: var=haproxy
+  tags:
+    - debug
+
 # in a heartbeat cluster
 # heartbeat is starting
 # the service
