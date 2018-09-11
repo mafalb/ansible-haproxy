@@ -9,8 +9,16 @@
 #
 # therefore a check for the haproxy pid file
 #
+
+- name: check for pidfile
+  when: not haproxy.service.managed
+  stat:
+    path: /var/run/haproxy.pid
+  register: haproxy_pidfile
+  listen: reload haproxy
+
 - name: reload haproxy
   service:
     name: haproxy
     state: reloaded
-  when: haproxy_pidfile.stat.exists
+  when: haproxy.service.managed or haproxy_pidfile.stat.exists
