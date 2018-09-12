@@ -1,13 +1,13 @@
+#! set ft=yaml ts=2:
 ---
 
-- name: directory for haproxy
+- name: log directory for haproxy does exist
   file:
-    path: "{{ haproxy_logdir }}"
+    path: "{{ haproxy.logdir }}"
     state: directory
+
 - name: rsyslog is configured for haproxy
   template:
-    src: "{{ item }}"
+    src: haproxy.conf.j2
     dest: /etc/rsyslog.d/haproxy.conf
-  with_items:
-    - haproxy.conf.j2
   notify: reload rsyslog
