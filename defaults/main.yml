@@ -2,9 +2,9 @@
 
 haproxy_service: haproxy
 haproxy_start_service: yes
-haproxy_logdir: /var/log/haproxy
 
 haproxy:
+  external_config_file: false
   service:
     managed: true
   logdir: /var/log/haproxy

@@ -1,21 +1,31 @@
 ---
 
-- name: haproxy
+- name: haproxy is installed
   package:
     name: haproxy
     state: present
 
-- name: haproxy.cfg
+- name: haproxy.cfg does exist
+  when: not haproxy.external_config_file
   template:
-    src: "{{ playbook_dir }}/templates/{{ cfg }}"
+    src: haproxy.conf.j2
     dest: /etc/haproxy/haproxy.cfg
     backup: yes
     validate: haproxy -c -f %s
   notify: reload haproxy
-  when: cfg is defined
+
+- name: haproxy.cfg does exist (externally provided)
+  when: haproxy.external_config_file
+  template:
+    src: "{{ playbook_dir }}/{{ haproxy.external_config_file }}"
+    dest: /etc/haproxy/haproxy.cfg
+    backup: yes
+    validate: haproxy -c -f %s
+  notify: reload haproxy
 
 - debug: var=haproxy
   tags:
+    - never
     - debug
 
 # in a heartbeat cluster
