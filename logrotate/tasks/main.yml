@@ -1,5 +1,10 @@
 ---
 
+- name: haproxy is installed
+  package:
+    name: haproxy
+    state: present
+
 - name: logrotate configuration for haproxy
   template:
     src: "{{ item }}"
