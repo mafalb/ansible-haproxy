@@ -15,10 +15,14 @@
   stat:
     path: /var/run/haproxy.pid
   register: haproxy_pidfile
-  listen: reload haproxy
+  listen:
+  - check for changed pem
+  - reload haproxy
 
 - name: reload haproxy
+  when: haproxy.service.managed or haproxy_pidfile.stat.exists
   service:
     name: haproxy
     state: reloaded
-  when: haproxy.service.managed or haproxy_pidfile.stat.exists
+  listen:
+  - check for changed pem
